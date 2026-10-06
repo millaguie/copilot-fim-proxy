@@ -1,0 +1,7 @@
+{
+    "github.copilot.advanced": {
+        "debug.overrideProxyUrl": "http://127.0.0.1:8788",
+        "debug.overrideEngine": "fim"
+    },
+    "github.copilot.nextEditSuggestions.enabled": false
+}

@@ -1,0 +1,20 @@
+# /etc/systemd/system/granite-fim.service: start granite-fim after the bigger model on
+# the same card (WAIT_FOR in /opt/granite-fim/env). The container has --restart no
+# because this unit owns it. A manual `docker stop granite-fim` exits 0, so the unit
+# does not bring it back.
+[Unit]
+Description=granite-fim (FIM engine for editor autocomplete)
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=simple
+TimeoutStartSec=1000
+ExecStartPre=/opt/granite-fim/wait-for.sh
+ExecStart=/usr/bin/docker start -a granite-fim
+ExecStop=/usr/bin/docker stop granite-fim
+Restart=on-failure
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target
