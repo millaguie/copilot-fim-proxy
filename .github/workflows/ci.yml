@@ -1,0 +1,19 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+      - name: Unit tests
+        run: python -m unittest discover -s tests -v
+      - name: Shell scripts
+        run: shellcheck --severity=error client/install.sh server/run.sh server/wait-for.sh
